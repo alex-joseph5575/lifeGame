@@ -1,4 +1,4 @@
-#include "Initializer.cpp"
+#include "Initializer.h"
 #include <iostream>
 
 using namespace std;
