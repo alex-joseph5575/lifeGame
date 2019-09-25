@@ -1,5 +1,7 @@
 #include "Initializer.h"
 #include <iostream>
+#include <sstream>
+#include <fstream>
 
 using namespace std;
 
@@ -10,7 +12,7 @@ Initializer::Initializer()
 
 Initializer::~Initializer()
 {
-
+  delete grid;
 }
 
 void Initializer::createWorld()
@@ -22,7 +24,7 @@ void Initializer::createWorld()
     cout << "2) No" << endl;
     cout << "3) Exit" << endl;
     getline(cin, input);
-    cout << "" << endl;
+    cout << endl;
 
     if (input == "1" || input == "Yes" || input == "YES" || input == "yes")
     {
@@ -53,16 +55,70 @@ void Initializer::createWorld()
 
   else
   {
-    //randomMap();
+    randomMap();
   }
 }
 
 void Initializer::createMap()
 {
+  /*string tempLine;
   cout << "Please enter the file path of your map." << endl;
   while (true)
   {
-    readline(cin, input);
-    cout << "" << endl;
+    getline(cin, input);
+    cout << endl;
+    fileStream.open(input);
+
+    if (fileStream.fail())
+    {
+      cout << "Invalid file name, please input a different file." << endl;
+    }
+    else
+    {
+      break;
+    }
+  }
+  fileStream.getline(tempLine, 1);*/
+}
+
+void Initializer::randomMap()
+{
+  float density;
+  float random;
+  cout << "How many rows?" << endl;
+  cin >> rows;
+  cout << endl;
+  cout << "How many columns?" << endl;
+  cin >> cols;
+  cout << endl;
+  grid = new bool* [rows];
+
+  for (int i = 0; i < rows; ++i)
+  {
+    grid[i] = new bool [cols];
+  }
+
+  cout << "Enter the population density as a decimal greater than 0 and less than or equal to 1" << endl;
+  cin >> density;
+  cout << endl;
+
+  srand(time(NULL));
+
+  for (int i = 0; i < cols; ++i)
+  {
+    for (int j = 0; j < rows; ++j)
+    {
+      random = (float) rand() / (float) RAND_MAX;
+
+      if (random < density)
+      {
+        grid [i][j] = true;
+      }
+      else
+      {
+        grid [i][j] = false;
+      }
+    }
+    cout << endl;
   }
 }
