@@ -7,16 +7,16 @@ using namespace std;
 ClassicMode::ClassicMode()
 {
   stable = false;
-  Initializer myInitializer;
-  myGrid = myInitializer.createWorld();
-  grid2 = new bool* [myInitializer.rows];
-  for (int i = 0; i < myInitializer.rows; ++i)
+  Initializer* myInitializer = new Initializer();
+  myGrid = myInitializer -> createWorld();
+  grid2 = new bool* [myInitializer -> rows];
+  for (int i = 0; i < myInitializer -> rows; ++i)
   {
-    grid2[i] = new bool [myInitializer.cols];
+    grid2[i] = new bool [myInitializer -> cols];
   }
   neighbors = 0;
-  row = myInitializer.rows;
-  col = myInitializer.cols;
+  row = myInitializer -> rows;
+  col = myInitializer -> cols;
 }
 
 ClassicMode::~ClassicMode()
@@ -50,11 +50,11 @@ void ClassicMode::runGame()
               continue;
             }
           }
-
           //top left corner special case
           if (j == 0)
           {
             //check space directly to the right
+            cout << myGrid[0][0] << endl;
             if (col > 1 && myGrid[i][j + 1] == true)
             {
               ++neighbors;
@@ -78,7 +78,7 @@ void ClassicMode::runGame()
             }
           }
           //top right corner special case
-          else if (j == col - 1)
+          if (j == col - 1)
           {
             //check space directly to the left
             if (myGrid[i][j - 1] == true)
@@ -479,7 +479,6 @@ void ClassicMode::runGame()
             }
           }
         }
-
         //determine space for next generation
         if (neighbors <= 1 || neighbors >= 4)
         {
@@ -489,9 +488,38 @@ void ClassicMode::runGame()
         {
           grid2 [i][j] = true;
         }
+        else
+        {
+          grid2 [i][j] = myGrid [i][j];
+        }
       }
     }
+    swap(myGrid, grid2);
+    for (int i = 0; i < row; ++i)
+    {
+      for (int j = 0; i < col; ++j)
+      {
+        if (myGrid [i][j] == true)
+        {
+          cout << "X";
+        }
+        else
+        {
+          cout << "-";
+        }
+      }
+      cout << endl;
+    }
+    cin;
+    stable = true;
   }
+}
+
+void ClassicMode::swap(bool** a, bool** b)
+{
+  bool** temp = a;
+  a = b;
+  b = temp;
 }
 
 void ClassicMode::appendResults()
