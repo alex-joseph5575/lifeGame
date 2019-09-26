@@ -15,7 +15,7 @@ Initializer::~Initializer()
   delete grid;
 }
 
-void Initializer::createWorld()
+bool** Initializer::createWorld()
 {
   cout << "Would you like to provide a map file?" << endl;
   while (true)
@@ -48,18 +48,53 @@ void Initializer::createWorld()
     }
   }
 
+  cout << "Before the game starts, how would you like to view the results?" << endl;
+  while (true)
+  {
+    cout << "1) Have a pause between each generation" << endl;
+    cout << "2) Manually press enter to advance a generation" << endl;
+    cout << "3) Output results to a file" << endl;
+    cout << "4) Exit program" << endl;
+
+    getline(cin, input);
+    cout << endl;
+    if (input == "1")
+    {
+      resultView = 1;
+      break;
+    }
+    else if (input == "2")
+    {
+      resultView = 2;
+      break;
+    }
+    else if (input == "3")
+    {
+      resultView = 3;
+      break;
+    }
+    else if (input == "4")
+    {
+      exit(0);
+    }
+    else
+    {
+      cout << "Invalid input. Please choose one of the 4 options." << endl;
+    }
+  }
+
   if (map == true)
   {
-    //createMap();
+    //return createMap();
   }
 
   else
   {
-    randomMap();
+    return randomMap();
   }
 }
 
-void Initializer::createMap()
+bool** Initializer::createMap()
 {
   /*string tempLine;
   cout << "Please enter the file path of your map." << endl;
@@ -81,7 +116,7 @@ void Initializer::createMap()
   fileStream.getline(tempLine, 1);*/
 }
 
-void Initializer::randomMap()
+bool** Initializer::randomMap()
 {
   float density;
   float random;
@@ -121,4 +156,5 @@ void Initializer::randomMap()
     }
     cout << endl;
   }
+  return grid;
 }

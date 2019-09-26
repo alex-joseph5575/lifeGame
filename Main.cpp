@@ -1,12 +1,12 @@
-#include "Initializer.h"
+#include "ClassicMode.h"
 #include <iostream>
 
 using namespace std;
 
 int main(int argc, char** argv)
 {
-  Initializer i;
-  i.createWorld();
+  ClassicMode c;
+  c.runGame();
 
 
 
