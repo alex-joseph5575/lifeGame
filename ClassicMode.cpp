@@ -4,6 +4,7 @@
 
 using namespace std;
 
+//Constructor - sets defaults and loads in second grid
 ClassicMode::ClassicMode()
 {
   stable = false;
@@ -21,17 +22,19 @@ ClassicMode::ClassicMode()
   genCount = 0;
 }
 
+//Destructor
 ClassicMode::~ClassicMode()
 {
   delete grid2;
 }
 
+//Runs game logic, advancing generations
 void ClassicMode::runGame()
 {
-  counter = 0;
   //Loops through grid checking neighbors
   while (stable == false)
   {
+    counter = 0;
     //iterates through each row
     for (int i = 0; i < row; ++i)
     {
@@ -46,12 +49,6 @@ void ClassicMode::runGame()
           if (row > 1 && myGrid[i + 1][j] == true)
           {
             ++neighbors;
-            // if 4 or more neighbors, automatically continue to next loop iteration
-            if (neighbors >= 4)
-            {
-              grid2 [i][j] = false;
-              continue;
-            }
           }
           //top left corner special case
           if (j == 0)
@@ -60,49 +57,25 @@ void ClassicMode::runGame()
             if (col > 1 && myGrid[i][j + 1] == true)
             {
               ++neighbors;
-              // if 4 or more neighbors, automatically continue to next loop iteration
-              if (neighbors >= 4)
-              {
-                grid2 [i][j] = false;
-                continue;
-              }
             }
             //check space diagonal down/right
             if (col > 1 && row > 1 && myGrid[i + 1][j + 1] == true)
             {
               ++neighbors;
-              // if 4 or more neighbors, automatically continue to next loop iteration
-              if (neighbors >= 4)
-              {
-                grid2 [i][j] = false;
-                continue;
-              }
             }
           }
           //top right corner special case
-          if (j == col - 1)
+          else if (j == col - 1)
           {
             //check space directly to the left
             if (myGrid[i][j - 1] == true)
             {
               ++neighbors;
-              // if 4 or more neighbors, automatically continue to next loop iteration
-              if (neighbors >= 4)
-              {
-                grid2 [i][j] = false;
-                continue;
-              }
             }
             //check space diagonal down/left
             if (row > 1 && myGrid[i + 1][j -1] == true)
             {
               ++neighbors;
-              // if 4 or more neighbors, automatically continue to next loop iteration
-              if (neighbors >= 4)
-              {
-                grid2 [i][j] = false;
-                continue;
-              }
             }
           }
           //general row 0 spaces
@@ -112,45 +85,21 @@ void ClassicMode::runGame()
             if (myGrid[i][j - 1] == true)
             {
               ++neighbors;
-              // if 4 or more neighbors, automatically continue to next loop iteration
-              if (neighbors >= 4)
-              {
-                grid2 [i][j] = false;
-                continue;
-              }
             }
             //check space to the right
             if (myGrid[i][j + 1] == true)
             {
               ++neighbors;
-              // if 4 or more neighbors, automatically continue to next loop iteration
-              if (neighbors >= 4)
-              {
-                grid2 [i][j] = false;
-                continue;
-              }
             }
             //check space diagonal down/left
             if (row > 1 && myGrid[i + 1][j - 1] == true)
             {
               ++neighbors;
-              // if 4 or more neighbors, automatically continue to next loop iteration
-              if (neighbors >= 4)
-              {
-                grid2 [i][j] = false;
-                continue;
-              }
             }
             //check space diagonal down/right
             if (row > 1 && myGrid[i + 1][j + 1] == true)
             {
               ++neighbors;
-              // if 4 or more neighbors, automatically continue to next loop iteration
-              if (neighbors >= 4)
-              {
-                grid2 [i][j] = false;
-                continue;
-              }
             }
           }
         }
@@ -161,12 +110,6 @@ void ClassicMode::runGame()
           if (myGrid[i - 1][j] == true)
           {
             ++neighbors;
-            // if 4 or more neighbors, automatically continue to next loop iteration
-            if (neighbors >= 4)
-            {
-              grid2 [i][j] = false;
-              continue;
-            }
           }
 
           //bottom left corner special case
@@ -176,24 +119,12 @@ void ClassicMode::runGame()
             if (col > 1 && myGrid[i][j + 1] == true)
             {
               ++neighbors;
-              // if 4 or more neighbors, automatically continue to next loop iteration
-              if (neighbors >= 4)
-              {
-                grid2 [i][j] = false;
-                continue;
-              }
             }
 
             //check space diagonal top/right
             if (myGrid[i - 1][j + 1] == true)
             {
               ++neighbors;
-              // if 4 or more neighbors, automatically continue to next loop iteration
-              if (neighbors >= 4)
-              {
-                grid2 [i][j] = false;
-                continue;
-              }
             }
           }
           //bottom right corner special case
@@ -203,23 +134,11 @@ void ClassicMode::runGame()
             if (myGrid[i][j - 1] == true)
             {
               ++neighbors;
-              // if 4 or more neighbors, automatically continue to next loop iteration
-              if (neighbors >= 4)
-              {
-                grid2 [i][j] = false;
-                continue;
-              }
             }
             //check space diagonal top/left
             if (myGrid[i - 1][j - 1] == true)
             {
               ++neighbors;
-              // if 4 or more neighbors, automatically continue to next loop iteration
-              if (neighbors >= 4)
-              {
-                grid2 [i][j] = false;
-                continue;
-              }
             }
           }
           //general final row spaces
@@ -229,45 +148,21 @@ void ClassicMode::runGame()
             if (myGrid[i][j - 1] == true)
             {
               ++neighbors;
-              // if 4 or more neighbors, automatically continue to next loop iteration
-              if (neighbors >= 4)
-              {
-                grid2 [i][j] = false;
-                continue;
-              }
             }
             //check space to the right
             if (myGrid[i][j + 1] == true)
             {
               ++neighbors;
-              // if 4 or more neighbors, automatically continue to next loop iteration
-              if (neighbors >= 4)
-              {
-                grid2 [i][j] = false;
-                continue;
-              }
             }
             //check space diagonal top/left
             if (myGrid[i - 1][j - 1] == true)
             {
               ++neighbors;
-              // if 4 or more neighbors, automatically continue to next loop iteration
-              if (neighbors >= 4)
-              {
-                grid2 [i][j] = false;
-                continue;
-              }
             }
             //check space diagonal top/right
             if (myGrid[i - 1][j + 1] == true)
             {
               ++neighbors;
-              // if 4 or more neighbors, automatically continue to next loop iteration
-              if (neighbors >= 4)
-              {
-                grid2 [i][j] = false;
-                continue;
-              }
             }
           }
         }
@@ -278,56 +173,26 @@ void ClassicMode::runGame()
           if (myGrid[i - 1][j] == true)
           {
             ++neighbors;
-            // if 4 or more neighbors, automatically continue to next loop iteration
-            if (neighbors >= 4)
-            {
-              grid2 [i][j] = false;
-              continue;
-            }
           }
           //check space below
           if (myGrid[i + 1][j] == true)
           {
             ++neighbors;
-            // if 4 or more neighbors, automatically continue to next loop iteration
-            if (neighbors >= 4)
-            {
-              grid2 [i][j] = false;
-              continue;
-            }
           }
           //check space to the right
           if (col > 1 && myGrid[i][j + 1] == true)
           {
             ++neighbors;
-            // if 4 or more neighbors, automatically continue to next loop iteration
-            if (neighbors >= 4)
-            {
-              grid2 [i][j] = false;
-              continue;
-            }
           }
           //check space diagonal top right
           if (col > 1 && myGrid[i - 1][j + 1] == true)
           {
             ++neighbors;
-            // if 4 or more neighbors, automatically continue to next loop iteration
-            if (neighbors >= 4)
-            {
-              grid2 [i][j] = false;
-              continue;
-            }
           }
           //check space diagonal bottom right
           if (col > 1 && myGrid[i + 1][j + 1] == true)
           {
             ++neighbors;
-            // if 4 or more neighbors, automatically continue to next loop iteration
-            if (neighbors >= 4)
-            {
-              grid2 [i][j] = false;
-              continue;
-            }
           }
         }
         //far right column special case
@@ -337,56 +202,26 @@ void ClassicMode::runGame()
           if (myGrid[i - 1][j] == true)
           {
             ++neighbors;
-            // if 4 or more neighbors, automatically continue to next loop iteration
-            if (neighbors >= 4)
-            {
-              grid2 [i][j] = false;
-              continue;
-            }
           }
           //check space directly below
           if (myGrid[i + 1][j] == true)
           {
             ++neighbors;
-            // if 4 or more neighbors, automatically continue to next loop iteration
-            if (neighbors >= 4)
-            {
-              grid2 [i][j] = false;
-              continue;
-            }
           }
           //check space to the left
           if (myGrid[i][j - 1] == true)
           {
             ++neighbors;
-            // if 4 or more neighbors, automatically continue to next loop iteration
-            if (neighbors >= 4)
-            {
-              grid2 [i][j] = false;
-              continue;
-            }
           }
           //check space diagonal top left
           if (myGrid[i - 1][j - 1] == true)
           {
             ++neighbors;
-            // if 4 or more neighbors, automatically continue to next loop iteration
-            if (neighbors >= 4)
-            {
-              grid2 [i][j] = false;
-              continue;
-            }
           }
           //check space diagonal bottom left
           if (myGrid[i + 1][j - 1] == true)
           {
             ++neighbors;
-            // if 4 or more neighbors, automatically continue to next loop iteration
-            if (neighbors >= 4)
-            {
-              grid2 [i][j] = false;
-              continue;
-            }
           }
         }
         //general/non border space case
@@ -396,89 +231,41 @@ void ClassicMode::runGame()
           if (myGrid[i - 1][j] == true)
           {
             ++neighbors;
-            // if 4 or more neighbors, automatically continue to next loop iteration
-            if (neighbors >= 4)
-            {
-              grid2 [i][j] = false;
-              continue;
-            }
           }
           //check below
           if (myGrid[i + 1][j] == true)
           {
             ++neighbors;
-            // if 4 or more neighbors, automatically continue to next loop iteration
-            if (neighbors >= 4)
-            {
-              grid2 [i][j] = false;
-              continue;
-            }
           }
           //check left
           if (myGrid[i][j - 1] == true)
           {
             ++neighbors;
-            // if 4 or more neighbors, automatically continue to next loop iteration
-            if (neighbors >= 4)
-            {
-              grid2 [i][j] = false;
-              continue;
-            }
           }
           //check right
           if (myGrid[i][j + 1] == true)
           {
             ++neighbors;
-            // if 4 or more neighbors, automatically continue to next loop iteration
-            if (neighbors >= 4)
-            {
-              grid2 [i][j] = false;
-              continue;
-            }
           }
           //check diagonal up/left
           if (myGrid[i - 1][j - 1] == true)
           {
             ++neighbors;
-            // if 4 or more neighbors, automatically continue to next loop iteration
-            if (neighbors >= 4)
-            {
-              grid2 [i][j] = false;
-              continue;
-            }
           }
           //check diagonal up/right
           if (myGrid[i - 1][j + 1] == true)
           {
             ++neighbors;
-            // if 4 or more neighbors, automatically continue to next loop iteration
-            if (neighbors >= 4)
-            {
-              grid2 [i][j] = false;
-              continue;
-            }
           }
           //check diagonal down/left
           if (myGrid[i + 1][j - 1] == true)
           {
             ++neighbors;
-            // if 4 or more neighbors, automatically continue to next loop iteration
-            if (neighbors >= 4)
-            {
-              grid2 [i][j] = false;
-              continue;
-            }
           }
           //check diagonal down/right
           if (myGrid[i + 1][j + 1] == true)
           {
             ++neighbors;
-            // if 4 or more neighbors, automatically continue to next loop iteration
-            if (neighbors >= 4)
-            {
-              grid2 [i][j] = false;
-              continue;
-            }
           }
         }
         //determine space for next generation
@@ -497,7 +284,7 @@ void ClassicMode::runGame()
       }
     }
 
-    swap(myGrid, grid2);
+    cout << "Old grid: " << endl;
     //print visual representation of grid and check if stable
     for (int i = 0; i < row; ++i)
     {
@@ -516,6 +303,24 @@ void ClassicMode::runGame()
         {
           ++counter;
         }
+        myGrid[i][j] = grid2[i][j];
+      }
+      cout << endl;
+    }
+
+    cout << "New grid: " << endl;
+    for (int i = 0; i < row; ++i)
+    {
+      for (int j = 0; j < col; ++j)
+      {
+        if (myGrid [i][j] == true)
+        {
+          cout << "X";
+        }
+        else if (myGrid [i][j] == false)
+        {
+          cout << "-";
+        }
       }
       cout << endl;
     }
@@ -523,6 +328,7 @@ void ClassicMode::runGame()
     if (counter == row * col)
     {
       ++genCount;
+      cout << "same board" << endl;
     }
 
     if (genCount >= 3)
@@ -533,12 +339,7 @@ void ClassicMode::runGame()
   }
 }
 
-void ClassicMode::swap(bool** a, bool** b)
-{
-  bool** temp = a;
-  a = b;
-  b = temp;
-}
+
 
 void ClassicMode::appendResults()
 {
