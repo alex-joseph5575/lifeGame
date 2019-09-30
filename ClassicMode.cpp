@@ -17,6 +17,8 @@ ClassicMode::ClassicMode()
   neighbors = 0;
   row = myInitializer -> rows;
   col = myInitializer -> cols;
+  counter = 0;
+  genCount = 0;
 }
 
 ClassicMode::~ClassicMode()
@@ -26,6 +28,7 @@ ClassicMode::~ClassicMode()
 
 void ClassicMode::runGame()
 {
+  counter = 0;
   //Loops through grid checking neighbors
   while (stable == false)
   {
@@ -54,7 +57,6 @@ void ClassicMode::runGame()
           if (j == 0)
           {
             //check space directly to the right
-            cout << myGrid[0][0] << endl;
             if (col > 1 && myGrid[i][j + 1] == true)
             {
               ++neighbors;
@@ -494,24 +496,40 @@ void ClassicMode::runGame()
         }
       }
     }
+
     swap(myGrid, grid2);
+    //print visual representation of grid and check if stable
     for (int i = 0; i < row; ++i)
     {
-      for (int j = 0; i < col; ++j)
+      for (int j = 0; j < col; ++j)
       {
         if (myGrid [i][j] == true)
         {
           cout << "X";
         }
-        else
+        else if (myGrid[i][j] == false)
         {
           cout << "-";
+        }
+
+        if (myGrid[i][j] == grid2[i][j])
+        {
+          ++counter;
         }
       }
       cout << endl;
     }
-    cin;
-    stable = true;
+    cin >> temp;
+    if (counter == row * col)
+    {
+      ++genCount;
+    }
+
+    if (genCount >= 3)
+    {
+      cout << "The grid has stabilized. Exiting program." << endl;
+      stable = true;
+    }
   }
 }
 
