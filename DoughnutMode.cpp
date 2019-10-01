@@ -1,4 +1,4 @@
-#include "ClassicMode.h"
+#include "DoughnutMode.h"
 #include "Initializer.h"
 #include <iostream>
 #include <unistd.h>
@@ -7,7 +7,7 @@
 using namespace std;
 
 //Constructor - sets defaults and loads in second grid
-ClassicMode::ClassicMode()
+DoughnutMode::DoughnutMode()
 {
   stable = false;
   Initializer* myInitializer = new Initializer();
@@ -29,13 +29,13 @@ ClassicMode::ClassicMode()
 }
 
 //Destructor
-ClassicMode::~ClassicMode()
+DoughnutMode::~DoughnutMode()
 {
   delete grid2;
 }
 
 //Runs game logic, advancing generations
-void ClassicMode::runGame()
+void DoughnutMode::runGame()
 {
   //Loops through grid checking neighbors
   while (stable == false)
@@ -69,6 +69,31 @@ void ClassicMode::runGame()
             {
               ++neighbors;
             }
+            //check "top left"
+            if (col > 1 && row > 1 && myGrid[row - 1][col -1] == true)
+            {
+              ++neighbors;
+            }
+            //check "top"
+            if (row > 1 && myGrid[row - 1][j] == true)
+            {
+              ++neighbors;
+            }
+            //check "top right"
+            if (col > 1 && row > 1 && myGrid[row - 1][j + 1] == true)
+            {
+              ++neighbors;
+            }
+            //check "left"
+            if (col > 1 && myGrid[i][col - 1] == true)
+            {
+              ++neighbors;
+            }
+            //check "down left"
+            if (col > 1 && row > 1 && myGrid[i + 1][col - 1] == true)
+            {
+              ++neighbors;
+            }
           }
           //top right corner special case
           else if (j == col - 1)
@@ -79,7 +104,32 @@ void ClassicMode::runGame()
               ++neighbors;
             }
             //check space diagonal down/left
-            if (row > 1 && myGrid[i + 1][j -1] == true)
+            if (row > 1 && myGrid[i + 1][j - 1] == true)
+            {
+              ++neighbors;
+            }
+            //check "up left"
+            if (row > 1 && myGrid[row - 1][j - 1] == true)
+            {
+              ++neighbors;
+            }
+            //check "up"
+            if (row > 1 && myGrid[row - 1][j] == true)
+            {
+              ++neighbors;
+            }
+            //check "up right"
+            if (row > 1 && myGrid[row - 1][0] == true)
+            {
+              ++neighbors;
+            }
+            //check "right"
+            if (myGrid[i][0] == true)
+            {
+              ++neighbors;
+            }
+            //check "down right"
+            if (row > 1 && myGrid[i + 1][0] == true)
             {
               ++neighbors;
             }
@@ -104,6 +154,21 @@ void ClassicMode::runGame()
             }
             //check space diagonal down/right
             if (row > 1 && myGrid[i + 1][j + 1] == true)
+            {
+              ++neighbors;
+            }
+            //check "up left"
+            if (row > 1 && myGrid[row - 1][j - 1] == true)
+            {
+              ++neighbors;
+            }
+            //check "up"
+            if (row > 1 && myGrid[row - 1][j] == true)
+            {
+              ++neighbors;
+            }
+            //check "up right"
+            if (row > 1 && myGrid[row - 1][j + 1] == true)
             {
               ++neighbors;
             }
@@ -132,6 +197,36 @@ void ClassicMode::runGame()
             {
               ++neighbors;
             }
+
+            //check "up left"
+            if (col > 1 && myGrid[i - 1][col - 1] == true)
+            {
+              ++neighbors;
+            }
+
+            //check "left"
+            if (col > 1 && myGrid[i][col - 1] == true)
+            {
+              ++neighbors;
+            }
+
+            //check "down left"
+            if (col > 1 && myGrid[0][col - 1] == true)
+            {
+              ++neighbors;
+            }
+
+            //check "down"
+            if (myGrid[0][j] == true)
+            {
+              ++neighbors;
+            }
+
+            //check "down right"
+            if (col > 1 && myGrid[0][j + 1] == true)
+            {
+              ++neighbors;
+            }
           }
           //bottom right corner special case
           else if (j == col - 1)
@@ -143,6 +238,31 @@ void ClassicMode::runGame()
             }
             //check space diagonal top/left
             if (myGrid[i - 1][j - 1] == true)
+            {
+              ++neighbors;
+            }
+            //check "up right"
+            if (myGrid[i - 1][0] == true)
+            {
+              ++neighbors;
+            }
+            //check "right"
+            if (myGrid[i][0] == true)
+            {
+              ++neighbors;
+            }
+            //check "down right"
+            if (myGrid[0][0] == true)
+            {
+              ++neighbors;
+            }
+            //check "down"
+            if (myGrid[0][j] == true)
+            {
+              ++neighbors;
+            }
+            //check "down left"
+            if (myGrid[0][j - 1] == true)
             {
               ++neighbors;
             }
@@ -167,6 +287,21 @@ void ClassicMode::runGame()
             }
             //check space diagonal top/right
             if (myGrid[i - 1][j + 1] == true)
+            {
+              ++neighbors;
+            }
+            //check "down left"
+            if (myGrid[0][j - 1] == true)
+            {
+              ++neighbors;
+            }
+            //check "down"
+            if (myGrid[0][j] == true)
+            {
+              ++neighbors;
+            }
+            //check "down right"
+            if (myGrid[0][j + 1] == true)
             {
               ++neighbors;
             }
@@ -200,6 +335,21 @@ void ClassicMode::runGame()
           {
             ++neighbors;
           }
+          //check "up left"
+          if (col > 1 && myGrid[i - 1][col - 1] == true)
+          {
+            ++neighbors;
+          }
+          //check "left"
+          if (col > 1 && myGrid[i][col - 1] == true)
+          {
+            ++neighbors;
+          }
+          //check "down left"
+          if (col > 1 && myGrid[i + 1][col - 1] == true)
+          {
+            ++neighbors;
+          }
         }
         //far right column special case
         else if (j == col - 1)
@@ -226,6 +376,21 @@ void ClassicMode::runGame()
           }
           //check space diagonal bottom left
           if (myGrid[i + 1][j - 1] == true)
+          {
+            ++neighbors;
+          }
+          //check "up right"
+          if (myGrid[i - 1][0] == true)
+          {
+            ++neighbors;
+          }
+          //check "right"
+          if (myGrid[i][0] == true)
+          {
+            ++neighbors;
+          }
+          //check "down right"
+          if (myGrid[i + 1][0] == true)
           {
             ++neighbors;
           }

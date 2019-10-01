@@ -18,6 +18,7 @@ class Initializer
     fstream fileStream; //deals with input and output with files
     bool** grid; //representation of game grid
     short resultView; //representation of how the user would like to view each generation
+    string fileName; //name of output file
 
   private:
     bool** createMap(); //creates a world based on user input

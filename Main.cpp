@@ -1,12 +1,13 @@
 #include "ClassicMode.h"
+#include "DoughnutMode.h"
 #include <iostream>
 
 using namespace std;
 
 int main(int argc, char** argv)
 {
-  ClassicMode c;
-  c.runGame();
+  ClassicMode d;
+  d.runGame();
 
 
 

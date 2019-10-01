@@ -3,11 +3,11 @@
 
 using namespace std;
 
-class ClassicMode
+class DoughnutMode
 {
   public:
-    ClassicMode();  //default constructor
-    ~ClassicMode(); //destructor
+    DoughnutMode();  //default constructor
+    ~DoughnutMode(); //destructor
 
     void runGame(); //handles game logic and cycles through generations
 

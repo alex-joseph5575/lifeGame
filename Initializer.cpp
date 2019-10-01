@@ -7,7 +7,7 @@ using namespace std;
 
 Initializer::Initializer()
 {
-
+  fileName = "";
 }
 
 Initializer::~Initializer()
@@ -71,6 +71,9 @@ bool** Initializer::createWorld()
     else if (input == "3")
     {
       resultView = 3;
+      cout << "Name of the file?" << endl;
+      cin >> fileName;
+      cout << endl;
       break;
     }
     else if (input == "4")

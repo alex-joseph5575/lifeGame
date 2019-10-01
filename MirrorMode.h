@@ -3,11 +3,11 @@
 
 using namespace std;
 
-class ClassicMode
+class MirrorMode
 {
   public:
-    ClassicMode();  //default constructor
-    ~ClassicMode(); //destructor
+    MirrorMode();  //default constructor
+    ~MirrorMode(); //destructor
 
     void runGame(); //handles game logic and cycles through generations
 
