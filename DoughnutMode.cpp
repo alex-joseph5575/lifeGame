@@ -26,6 +26,7 @@ DoughnutMode::DoughnutMode()
   counter = 0;
   genCount = 0;
   modeType = myInitializer -> resultView;
+  file = myInitializer -> fileName;
 }
 
 //Destructor
@@ -37,6 +38,23 @@ DoughnutMode::~DoughnutMode()
 //Runs game logic, advancing generations
 void DoughnutMode::runGame()
 {
+  cout << "Initial board: " << endl;
+  for (int i = 0; i < row; ++i)
+  {
+    for (int j = 0; j < col; ++j)
+    {
+      if (myGrid[i][j] == true)
+      {
+        cout << "X";
+      }
+      else
+      {
+        cout << "-";
+      }
+    }
+    cout << endl;
+  }
+  cout << endl;
   //Loops through grid checking neighbors
   while (stable == false)
   {
@@ -455,91 +473,69 @@ void DoughnutMode::runGame()
       }
     }
 
+    //Output grid
+    writer.open(file, ios_base::app);
+    for (int i = 0; i < row; ++i)
+    {
+      for (int j = 0; j < col; ++j)
+      {
+        if (myGrid[i][j] == grid2[i][j])
+        {
+          ++counter;
+        }
 
-    //pause between generations
+        myGrid[i][j] = grid2[i][j];
+
+        if (modeType == 1 || modeType == 2)
+        {
+          if (myGrid[i][j] == true)
+          {
+            cout << "X";
+          }
+          else
+          {
+            cout << "-";
+          }
+        }
+        else
+        {
+          if (myGrid[i][j] == true)
+          {
+            writer << 'X';
+          }
+          else
+          {
+            writer << '-';
+          }
+        }
+      }
+      if (modeType == 1 || modeType == 2)
+      {
+        cout << endl;
+      }
+      else
+      {
+        writer << '\n';
+      }
+    }
+    if (modeType == 1 || modeType == 2)
+    {
+      cout << endl;
+    }
+    else
+    {
+      writer << '\n';
+    }
+    writer.close();
+
     if (modeType == 1)
     {
-      for (int i = 0; i < row; ++i)
-      {
-        for (int j = 0; j < col; ++j)
-        {
-          if (myGrid[i][j] == grid2[i][j])
-          {
-            ++counter;
-          }
-
-          myGrid[i][j] == grid2[i][j];
-
-          if (myGrid[i][j] == true)
-          {
-            cout << "X";
-          }
-          else
-          {
-            cout << "-";
-          }
-        }
-        cout << endl;
-      }
       usleep(3000000);
     }
-
-    //Press enter to continue
     else if (modeType == 2)
     {
-      for (int i = 0; i < row; ++i)
-      {
-        for (int j = 0; j < col; ++j)
-        {
-          if (myGrid[i][j] == grid2[i][j])
-          {
-            ++counter;
-          }
-
-          myGrid[i][j] == grid2[i][j];
-
-          if (myGrid[i][j] == true)
-          {
-            cout << "X";
-          }
-          else
-          {
-            cout << "-";
-          }
-        }
-        cout << endl;
-      }
       cin >> temp;
     }
-
-    //output to file
-    /*else if (modeType == 3)
-    {
-      writer.open(myInitializer -> fileName, std::ofstream::out | std::ofstream::app);
-      for (int i = 0; i < row; ++i)
-      {
-        for (int j = 0; j < col; ++j)
-        {
-          if (myGrid[i][j] == grid2[i][j])
-          {
-            ++counter;
-          }
-
-          myGrid[i][j] == grid2[i][j];
-
-          if (myGrid[i][j] == true)
-          {
-            writer.write('X');
-          }
-          else
-          {
-            writer.write('-');
-          }
-        }
-        writer.write('\n');
-      }
-      writer.close();
-    }*/
 
     //If all spaces are identical between the 2 grids, add to gencount
     if (counter == row * col)
@@ -559,6 +555,7 @@ void DoughnutMode::runGame()
     //check every 20 generations in case grid is fluctuating back and forth endlessly
     if (generations % 20 == 0)
     {
+      cout << "Generations passed: " << generations << endl;
       cout << "1) Continue simulation" << endl;
       cout << "2) Exit program" << endl;
       cin >> temp;

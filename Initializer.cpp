@@ -1,7 +1,7 @@
 #include "Initializer.h"
 #include <iostream>
-#include <sstream>
 #include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -88,7 +88,7 @@ bool** Initializer::createWorld()
 
   if (map == true)
   {
-    //return createMap();
+    return createMap();
   }
 
   else
@@ -99,7 +99,7 @@ bool** Initializer::createWorld()
 
 bool** Initializer::createMap()
 {
-  /*string tempLine;
+  string tempLine;
   cout << "Please enter the file path of your map." << endl;
   while (true)
   {
@@ -116,7 +116,45 @@ bool** Initializer::createMap()
       break;
     }
   }
-  fileStream.getline(tempLine, 1);*/
+  getline(fileStream, tempLine);
+  stringstream interpreter(tempLine);
+  interpreter >> rows;
+  getline(fileStream, tempLine);
+  stringstream interpreter2(tempLine);
+  interpreter2 >> cols;
+  grid = new bool* [rows];
+  for (int i = 0; i < rows; ++i)
+  {
+    grid[i] = new bool [cols];
+  }
+
+  for (int i = 0; i < rows; ++i)
+  {
+    for (int j = 0; j < cols + 1; ++j)
+    {
+      tempChar = fileStream.get();
+      if (tempChar == 88)
+      {
+        grid[i][j] = true;
+      }
+      else if (tempChar == 45)
+      {
+        grid[i][j] = false;
+      }
+      else if (tempChar == 10)
+      {
+        //do nothing
+      }
+      else
+      {
+        cout << "Invalid character. Exiting gracefully." << endl;
+        exit(0);
+      }
+    }
+  }
+  fileStream.close();
+
+  return grid;
 }
 
 bool** Initializer::randomMap()

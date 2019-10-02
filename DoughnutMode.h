@@ -25,6 +25,7 @@ class DoughnutMode
     short modeType; //represents which type of output the user has selected
     string temp; //temp input to advance simulation
     ofstream writer; //writes to output file
+    string file; //name of file to output to 
 
 
 
